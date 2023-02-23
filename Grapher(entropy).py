@@ -53,13 +53,15 @@ def create_plot(graph_title, x_title, y_title, x_min, x_max, function_input,
         axes.plot(x_values, function_input(x_values), color=colour_input,
                   label='Trend Prediction')
     except Exception:
-        axes.plot(x_values, function_input(x_values, extra_input1),
-                  color=colour_input, label='Trend Prediction')
-    except Exception:
-        axes.plot(x_values, function_input(x_values, extra_input1,
-                  extra_input2), color=colour_input, label='Trend Prediction')
-    except Exception:
-        return 1
+        try:
+            axes.plot(x_values, function_input(x_values, extra_input1),
+                      color=colour_input, label='Trend Prediction')
+        except Exception:
+            try:
+                axes.plot(x_values, function_input(x_values, extra_input1,
+                                                   extra_input2), color=colour_input, label='Trend Prediction')
+            except Exception:
+                return 1
     plt.legend()
     plt.savefig(graph_title + '.png', dpi=777)
     plt.show()
